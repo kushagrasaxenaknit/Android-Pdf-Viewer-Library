@@ -918,6 +918,25 @@ public abstract class PdfViewerActivity extends Activity {
     	closeNavigationHandler.removeCallbacks(closeNavigationThread);
     	closeNavigationHandler.postDelayed(closeNavigationThread, 3000);
     }*/
+	
+	//return current page bitmap
+	private Bitmap getPdfPageBitmap() throws Exception {
+		
+		try {
+                 float width = mPdfPage.getWidth();
+	        float height = mPdfPage.getHeight();
+	        
+	        RectF clip = null;
+			Bitmap bi = mPdfPage.getImage((int)(width), (int)(height), clip, true, true);
+
+			return bi;
+
+		} catch (Throwable e) {
+			Log.e(TAG, e.getMessage(), e);
+			mGraphView.showText("Exception: "+e.getMessage());
+		}
+
+	}
 
     public abstract int getPreviousPageImageResource(); // R.drawable.left_arrow
     public abstract int getNextPageImageResource(); // R.drawable.right_arrow
